@@ -1,0 +1,16 @@
+# Dependencies
+node_modules
+
+# Environment variables — NEVER commit
+.env
+.env.local
+.env.production.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor
+.vscode/*
+.idea
+.DS_Store

@@ -1,0 +1,43 @@
+{
+  "name": "edunest-ai-server",
+  "version": "1.0.0",
+  "description": "EduNest AI — Node.js + Express backend",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "lint": "echo \"Add ESLint in next phase\""
+  },
+  "keywords": [
+    "edunest",
+    "ai",
+    "express",
+    "backend"
+  ],
+  "author": "EduNest AI",
+  "license": "ISC",
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "nodemonConfig": {
+    "watch": [
+      "*.js",
+      "**/*.js"
+    ],
+    "ignore": [
+      "node_modules"
+    ],
+    "ext": "js,json",
+    "delay": 500
+  }
+}
