@@ -36,15 +36,15 @@ const Navbar = () => {
           {/* Desktop center nav */}
           <div className="hidden items-center gap-1 md:flex">
             {NAV_LINKS.map((item) => (
-              <a
+              <Link
                 key={item.label}
-                href={item.href}
+                to={item.href}
                 className={`rounded-full px-4 py-2 text-sm font-semibold transition-all duration-200 hover:text-blue-600 ${
                   isDark ? 'text-slate-300 hover:bg-slate-800/80' : 'text-slate-600 hover:bg-slate-100'
                 }`}
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -122,16 +122,16 @@ const Navbar = () => {
           <div className={`animate-slideDown border-t py-4 md:hidden ${isDark ? 'border-white/10' : 'border-slate-200'}`}>
             <div className="flex flex-col space-y-1">
               {NAV_LINKS.map((item) => (
-                <a
+                <Link
                   key={item.label}
-                  href={item.href}
+                  to={item.href}
                   onClick={() => setIsOpen(false)}
                   className={`rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors ${
                     isDark ? 'text-slate-300 hover:bg-slate-800 hover:text-white' : 'text-slate-700 hover:bg-slate-100 hover:text-blue-600'
                   }`}
                 >
                   {item.label}
-                </a>
+                </Link>
               ))}
 
               <div className={`my-2 h-px ${isDark ? 'bg-white/10' : 'bg-slate-200'}`} />

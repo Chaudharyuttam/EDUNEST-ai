@@ -3,6 +3,7 @@
  * Showcases 6 real AI features directly tied to cracking placements.
  */
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { useTheme } from '../utils/themeContext'
 import {
   Map, Bot, FileText, Mic, BarChart3, BookOpen,
@@ -109,14 +110,14 @@ const FeatureCard = ({ feature }) => {
         {feature.description}
       </p>
 
-      <a
-        href={feature.href}
+      <Link
+        to={feature.href}
         className={`mt-5 text-sm font-bold transition-colors duration-200 ${
           isDark ? 'text-blue-400 hover:text-violet-400' : 'text-blue-600 hover:text-violet-700'
         }`}
       >
         {feature.cta}
-      </a>
+      </Link>
 
       {/* Hover glow */}
       <div className={`pointer-events-none absolute inset-0 rounded-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-5 bg-gradient-to-br ${feature.color}`} />
