@@ -14,6 +14,8 @@
 // ── PDF.js worker setup ────────────────────────────────────────────────────────
 // Using Vite's URL-import to bundle the worker from local node_modules.
 // This avoids CDN mismatches and works offline.
+import pdfjsWorkerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url'
+
 let _pdfjsLib = null
 
 async function getPdfLib() {
@@ -21,12 +23,8 @@ async function getPdfLib() {
 
   const pdfjsLib = await import('pdfjs-dist')
 
-  // Point worker to the local build file via Vite static URL pattern
-  // This is the recommended approach for Vite + pdfjs-dist v4+
-  pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
-    'pdfjs-dist/build/pdf.worker.min.mjs',
-    import.meta.url,
-  ).href
+  // Point worker to the local build file using Vite's explicit URL import
+  pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorkerUrl
 
   _pdfjsLib = pdfjsLib
   return pdfjsLib
