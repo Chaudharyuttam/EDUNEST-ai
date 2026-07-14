@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { Eye, EyeOff, Lock, Mail } from 'lucide-react'
 import AuthShell from '../components/AuthShell'
 import { saveAuthToken } from '../utils/auth'
@@ -61,7 +61,7 @@ const Login = () => {
             <input type="checkbox" className="rounded border-slate-300" />
             Remember me
           </label>
-          <a href="/forgot-password" className="font-semibold text-blue-600 hover:text-violet-600">Forgot password?</a>
+          <Link to="/forgot-password" className="font-semibold text-blue-600 hover:text-violet-600">Forgot password?</Link>
         </div>
 
         <button type="submit" className="btn-primary w-full justify-center">Continue</button>

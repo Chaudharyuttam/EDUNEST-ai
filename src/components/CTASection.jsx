@@ -4,6 +4,7 @@
  * Replaces Newsletter + old CTA sections.
  */
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { useTheme } from '../utils/themeContext'
 import { Sparkles, ArrowRight, Bot, Map } from 'lucide-react'
 
@@ -40,18 +41,18 @@ const CTASection = () => {
 
           {/* CTA buttons */}
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <a
-              href="/roadmap"
+            <Link
+              to="/roadmap"
               className="flex items-center gap-2 rounded-full bg-white px-8 py-4 text-base font-black text-violet-700 shadow-2xl shadow-black/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-3xl"
             >
               <Map size={18} /> Generate My Roadmap
-            </a>
-            <a
-              href="/chat"
+            </Link>
+            <Link
+              to="/chat"
               className="flex items-center gap-2 rounded-full border-2 border-white/40 bg-white/10 px-8 py-4 text-base font-bold text-white backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:bg-white/20"
             >
               <Bot size={18} /> Talk to AI Mentor <ArrowRight size={16} />
-            </a>
+            </Link>
           </div>
 
           {/* Social proof micro-line */}

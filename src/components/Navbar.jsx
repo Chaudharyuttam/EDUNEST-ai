@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Menu, X, Moon, Sun, Map, Bot, FileText } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { useTheme } from '../utils/themeContext'
 
 const NAV_LINKS = [
@@ -20,7 +21,7 @@ const Navbar = () => {
         <div className="flex h-16 items-center justify-between sm:h-20">
 
           {/* Brand */}
-          <a href="/" className="flex cursor-pointer items-center gap-3 group">
+          <Link to="/" className="flex cursor-pointer items-center gap-3 group">
             <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 via-violet-600 to-fuchsia-600 shadow-lg shadow-blue-600/20 transition-transform duration-300 group-hover:scale-105">
               <span className="text-sm font-black text-white">EN</span>
             </div>
@@ -30,7 +31,7 @@ const Navbar = () => {
               </p>
               <p className="text-[10px] font-bold uppercase tracking-widest text-violet-500">AI</p>
             </div>
-          </a>
+          </Link>
 
           {/* Desktop center nav */}
           <div className="hidden items-center gap-1 md:flex">
@@ -62,8 +63,8 @@ const Navbar = () => {
             </button>
 
             {/* Roadmap link */}
-            <a
-              href="/roadmap"
+            <Link
+              to="/roadmap"
               className={`hidden items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition-all duration-200 sm:flex ${
                 isDark
                   ? 'border-violet-500/30 bg-violet-500/10 text-violet-300 hover:bg-violet-500/20'
@@ -71,11 +72,11 @@ const Navbar = () => {
               }`}
             >
               <Map size={15} /> Roadmap
-            </a>
+            </Link>
 
             {/* AI Chat link */}
-            <a
-              href="/chat"
+            <Link
+              to="/chat"
               className={`hidden items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition-all duration-200 sm:flex ${
                 isDark
                   ? 'border-white/10 bg-white/5 text-slate-200 hover:bg-white/10'
@@ -83,10 +84,10 @@ const Navbar = () => {
               }`}
             >
               <Bot size={15} /> AI Mentor
-            </a>
+            </Link>
 
-            <a
-              href="/resume"
+            <Link
+              to="/resume"
               className={`hidden items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition-all duration-200 sm:flex ${
                 isDark
                   ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20'
@@ -94,15 +95,15 @@ const Navbar = () => {
               }`}
             >
               <FileText size={15} /> Resume
-            </a>
+            </Link>
 
             {/* Sign up CTA */}
-            <a
-              href="/signup"
+            <Link
+              to="/signup"
               className="hidden rounded-full bg-gradient-to-r from-blue-600 to-violet-600 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-blue-600/20 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl sm:block"
             >
               Get Started Free
-            </a>
+            </Link>
 
             {/* Mobile menu button */}
             <button
@@ -135,18 +136,18 @@ const Navbar = () => {
 
               <div className={`my-2 h-px ${isDark ? 'bg-white/10' : 'bg-slate-200'}`} />
 
-              <a href="/roadmap" onClick={() => setIsOpen(false)} className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold ${isDark ? 'text-violet-300 hover:bg-slate-800' : 'text-violet-700 hover:bg-violet-50'}`}>
+              <Link to="/roadmap" onClick={() => setIsOpen(false)} className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold ${isDark ? 'text-violet-300 hover:bg-slate-800' : 'text-violet-700 hover:bg-violet-50'}`}>
                 <Map size={15} /> Roadmap Generator
-              </a>
-              <a href="/chat" onClick={() => setIsOpen(false)} className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold ${isDark ? 'text-slate-300 hover:bg-slate-800' : 'text-slate-700 hover:bg-slate-100'}`}>
+              </Link>
+              <Link to="/chat" onClick={() => setIsOpen(false)} className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold ${isDark ? 'text-slate-300 hover:bg-slate-800' : 'text-slate-700 hover:bg-slate-100'}`}>
                 <Bot size={15} /> AI Mentor Chat
-              </a>
-              <a href="/resume" onClick={() => setIsOpen(false)} className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold ${isDark ? 'text-emerald-300 hover:bg-slate-800' : 'text-emerald-700 hover:bg-emerald-50'}`}>
+              </Link>
+              <Link to="/resume" onClick={() => setIsOpen(false)} className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold ${isDark ? 'text-emerald-300 hover:bg-slate-800' : 'text-emerald-700 hover:bg-emerald-50'}`}>
                 <FileText size={15} /> Resume Analyser
-              </a>
-              <a href="/signup" onClick={() => setIsOpen(false)} className="mt-2 flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-4 py-3 text-sm font-bold text-white">
+              </Link>
+              <Link to="/signup" onClick={() => setIsOpen(false)} className="mt-2 flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-4 py-3 text-sm font-bold text-white">
                 Get Started Free
-              </a>
+              </Link>
 
               <button
                 type="button"

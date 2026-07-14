@@ -4,6 +4,7 @@
  * from sign-up to placement. Placed between Hero and Features.
  */
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { useTheme } from '../utils/themeContext'
 import { ClipboardList, Sparkles, Briefcase, ArrowRight } from 'lucide-react'
 
@@ -114,12 +115,12 @@ const HowItWorksSection = () => {
 
         {/* Bottom CTA */}
         <div className="mt-12 text-center">
-          <a
-            href="/roadmap"
+          <Link
+            to="/roadmap"
             className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-violet-600 px-8 py-3.5 text-base font-bold text-white shadow-xl shadow-blue-600/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
           >
             <Sparkles size={16} /> Start Your Journey Free
-          </a>
+          </Link>
         </div>
       </div>
     </section>

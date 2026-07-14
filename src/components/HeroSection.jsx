@@ -1,5 +1,6 @@
 import React from 'react'
 import { ArrowRight, Sparkles, Bot, BrainCircuit, MapPin, FileText, LayoutDashboard } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { useTheme } from '../utils/themeContext'
 
 const STATS = [
@@ -52,14 +53,14 @@ const HeroSection = () => {
 
             {/* CTAs */}
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <a
-                href="/roadmap"
+              <Link
+                to="/roadmap"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-violet-600 px-7 py-3.5 text-base font-bold text-white shadow-xl shadow-blue-600/25 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
               >
                 Generate My Roadmap <ArrowRight size={18} />
-              </a>
-              <a
-                href="/chat"
+              </Link>
+              <Link
+                to="/chat"
                 className={`inline-flex items-center justify-center gap-2 rounded-full border px-7 py-3.5 text-base font-semibold transition-all duration-300 ${
                   isDark
                     ? 'border-white/10 bg-slate-900/60 text-slate-200 hover:bg-slate-800'
@@ -67,7 +68,7 @@ const HeroSection = () => {
                 }`}
               >
                 <Bot size={18} /> Try AI Mentor
-              </a>
+              </Link>
             </div>
 
             {/* Stats row */}
@@ -135,9 +136,9 @@ const HeroSection = () => {
                   <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
                   <span className={isDark ? 'text-slate-300' : 'text-slate-700'}>AI mentor is ready</span>
                 </div>
-                <a href="/chat" className="rounded-full bg-gradient-to-r from-blue-600 to-violet-600 px-4 py-1.5 text-xs font-bold text-white transition hover:opacity-90">
+                <Link to="/chat" className="rounded-full bg-gradient-to-r from-blue-600 to-violet-600 px-4 py-1.5 text-xs font-bold text-white transition hover:opacity-90">
                   Start Chat →
-                </a>
+                </Link>
               </div>
             </div>
           </div>

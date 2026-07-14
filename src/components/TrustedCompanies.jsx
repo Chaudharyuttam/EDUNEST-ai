@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { useTheme } from '../utils/themeContext'
 
 const TrustedCompanies = () => {
@@ -32,9 +33,9 @@ const TrustedCompanies = () => {
         </div>
 
         <div className="mt-12 text-center sm:mt-16">
-          <a href="/chat" className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-violet-600 px-6 py-3 font-semibold text-white shadow-lg shadow-blue-600/20 transition hover:-translate-y-1">
+          <Link to="/chat" className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-violet-600 px-6 py-3 font-semibold text-white shadow-lg shadow-blue-600/20 transition hover:-translate-y-1">
             Try the AI tutor now
-          </a>
+          </Link>
         </div>
       </div>
     </section>

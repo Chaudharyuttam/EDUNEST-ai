@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { BrainCircuit, Sparkles, Rocket, CheckCircle2 } from 'lucide-react'
 import { useTheme } from '../utils/themeContext'
 
@@ -36,8 +37,8 @@ const PlatformSection = () => {
               From planning your next study sprint to getting instant explanations, EduNest AI turns learning into a guided, motivating experience.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="/chat" className="rounded-full bg-gradient-to-r from-blue-600 to-violet-600 px-6 py-3 font-semibold text-white shadow-lg shadow-blue-600/20 transition hover:-translate-y-1">Open the AI tutor</a>
-              <a href="/signup" className={`rounded-full border px-6 py-3 font-semibold transition ${isDark ? 'border-white/10 bg-slate-900/70 text-slate-100 hover:bg-slate-800' : 'border-slate-300 bg-white text-slate-700 hover:border-blue-400 hover:text-blue-600'}`}>Create free account</a>
+              <Link to="/chat" className="rounded-full bg-gradient-to-r from-blue-600 to-violet-600 px-6 py-3 font-semibold text-white shadow-lg shadow-blue-600/20 transition hover:-translate-y-1">Open the AI tutor</Link>
+              <Link to="/signup" className={`rounded-full border px-6 py-3 font-semibold transition ${isDark ? 'border-white/10 bg-slate-900/70 text-slate-100 hover:bg-slate-800' : 'border-slate-300 bg-white text-slate-700 hover:border-blue-400 hover:text-blue-600'}`}>Create free account</Link>
             </div>
           </div>
 

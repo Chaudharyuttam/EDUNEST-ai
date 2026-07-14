@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Github, Linkedin, Twitter, Mail, Heart } from 'lucide-react'
 import { useTheme } from '../utils/themeContext'
 
@@ -81,12 +82,12 @@ const Footer = () => {
               <ul className="space-y-3">
                 {links.map((link) => (
                   <li key={link.label}>
-                    <a
-                      href={link.href}
+                    <Link
+                      to={link.href}
                       className="text-sm text-slate-500 transition-colors duration-200 hover:text-blue-400"
                     >
                       {link.label}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
