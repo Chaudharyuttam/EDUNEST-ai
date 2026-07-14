@@ -1,16 +1,17 @@
 /**
  * routes/roadmapRoutes.js
  * Roadmap route definitions — all prefixed with /api/roadmap in app.js
+ *
+ * NOTE: Global apiLimiter is already applied to all /api/* in app.js.
+ *       No need to apply it again here.
  */
 
 import { Router } from 'express'
 import { generateRoadmapHandler } from '../controllers/roadmapController.js'
-import { apiLimiter } from '../middleware/rateLimiter.js'
 
 const router = Router()
 
 // POST /api/roadmap/generate
-// Standard rate limit — Gemini calls are expensive, so limit per IP
-router.post('/generate', apiLimiter, generateRoadmapHandler)
+router.post('/generate', generateRoadmapHandler)
 
 export default router

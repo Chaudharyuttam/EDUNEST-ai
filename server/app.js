@@ -13,6 +13,8 @@
 import express from 'express'
 import cors    from 'cors'
 import helmet  from 'helmet'
+import path    from 'path'
+import { fileURLToPath } from 'url'
 
 import env from './config/env.js'
 import requestLogger from './middleware/requestLogger.js'
@@ -27,8 +29,22 @@ import resumeRoutes from './routes/resumeRoutes.js'
 
 const app = express()
 
+// ── Resolve dist path for serving the built SPA ──────────────────────────────
+const __filename = fileURLToPath(import.meta.url)
+const __dirname  = path.dirname(__filename)
+const distPath   = path.join(__dirname, '..', 'dist')
+
 // ── Security headers ──────────────────────────────────────────────────────────
-app.use(helmet())
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        'script-src': ["'self'", "'unsafe-inline'"],
+      },
+    },
+  })
+)
 
 // ── CORS ──────────────────────────────────────────────────────────────────────
 // Build allowed origins list from env variables.
@@ -85,9 +101,18 @@ app.use('/api/chat',    chatRoutes)
 app.use('/api/roadmap', roadmapRoutes)
 app.use('/api/resume',  resumeRoutes)
 
-// ── 404 handler ───────────────────────────────────────────────────────────────
-app.use((_req, _res, next) => {
+// ── API 404 handler (only for /api/* routes) ──────────────────────────────────
+app.use('/api', (_req, _res, next) => {
   next(new NotFoundError('API route not found. Check the URL and HTTP method.'))
+})
+
+// ── Serve static client files ─────────────────────────────────────────────────
+app.use(express.static(distPath))
+
+// ── SPA catch-all — return index.html for all non-API routes ──────────────────
+// This enables React Router to handle client-side routing on page reload.
+app.get('*', (_req, res) => {
+  res.sendFile(path.join(distPath, 'index.html'))
 })
 
 // ── Global error handler (must be after all routes & middleware) ───────────────
