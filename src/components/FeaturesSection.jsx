@@ -131,7 +131,7 @@ const FeaturesSection = () => {
   return (
     <section
       id="features"
-      className={`relative overflow-hidden py-24 ${
+      className={`relative scroll-mt-20 overflow-hidden py-24 ${
         isDark
           ? 'bg-slate-950'
           : 'bg-[linear-gradient(135deg,_#f9fbff_0%,_#f4f7ff_100%)]'

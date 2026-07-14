@@ -15,7 +15,7 @@ const HeroSection = () => {
   return (
     <section
       id="home"
-      className={`relative overflow-hidden px-4 py-20 sm:px-6 lg:px-8 lg:py-28 ${
+      className={`relative scroll-mt-20 overflow-hidden px-4 py-20 sm:px-6 lg:px-8 lg:py-28 ${
         isDark
           ? 'bg-slate-950 text-slate-100'
           : 'bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.14),_transparent_30%),radial-gradient(circle_at_top_right,_rgba(168,85,247,0.13),_transparent_35%),linear-gradient(135deg,_#f8fbff_0%,_#fdfbff_50%,_#f5f7ff_100%)]'

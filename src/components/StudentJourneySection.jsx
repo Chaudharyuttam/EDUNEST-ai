@@ -48,7 +48,7 @@ const StudentJourneySection = () => {
   return (
     <section
       id="journey"
-      className={`relative overflow-hidden py-24 ${isDark ? 'bg-slate-900' : 'bg-white'}`}
+      className={`relative scroll-mt-20 overflow-hidden py-24 ${isDark ? 'bg-slate-900' : 'bg-white'}`}
     >
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent" />
 

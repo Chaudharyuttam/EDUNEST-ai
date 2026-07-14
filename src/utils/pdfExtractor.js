@@ -15,8 +15,15 @@
 // Using Vite's URL-import to bundle the worker from local node_modules.
 // This avoids CDN mismatches and works offline.
 import pdfjsWorkerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url'
+import tesseractWorkerUrl from 'tesseract.js/dist/worker.min.js?url'
+import tesseractCoreUrl from 'tesseract.js-core/tesseract-core.wasm.js?url'
 
 let _pdfjsLib = null
+
+// PDF.js transfers the ArrayBuffer passed to getDocument() to its worker. Always
+// give it a fresh copy so a later extraction attempt (such as OCR) can still read
+// the original uploaded file.
+const copyPdfBytes = (arrayBuffer) => new Uint8Array(arrayBuffer.slice(0))
 
 async function getPdfLib() {
   if (_pdfjsLib) return _pdfjsLib
@@ -47,7 +54,7 @@ async function extractDigitalText(arrayBuffer) {
 
   // Use a copy of the buffer — pdf.js transfers ownership
   const pdf = await pdfjsLib.getDocument({
-    data: new Uint8Array(arrayBuffer),
+    data: copyPdfBytes(arrayBuffer),
     useSystemFonts: true,   // avoids missing font warnings
     disableFontFace: false,
   }).promise
@@ -69,7 +76,9 @@ async function extractDigitalText(arrayBuffer) {
   }
 
   const avgCharsPerPage = fullText.trim().length / pdf.numPages
-  await pdf.destroy()
+  // pdfjs-dist v6 exposes cleanup() on PDFDocumentProxy; destroy() is not
+  // available in all builds and was throwing after successful extraction.
+  pdf.cleanup()
 
   return {
     text:        fullText.trim(),
@@ -83,8 +92,13 @@ async function extractOcrText(arrayBuffer, onProgress) {
   const pdfjsLib = await getPdfLib()
   const { createWorker } = await import('tesseract.js')
 
-  const pdf    = await pdfjsLib.getDocument({ data: new Uint8Array(arrayBuffer) }).promise
-  const worker = await createWorker('eng')
+  const pdf    = await pdfjsLib.getDocument({ data: copyPdfBytes(arrayBuffer) }).promise
+  // Keep the worker and WebAssembly core local to this app. The library defaults
+  // to a CDN URL, which can be blocked by a deployment's CSP or network policy.
+  const worker = await createWorker('eng', 1, {
+    workerPath: tesseractWorkerUrl,
+    corePath: tesseractCoreUrl,
+  })
 
   let fullText = ''
 
@@ -106,7 +120,7 @@ async function extractOcrText(arrayBuffer, onProgress) {
   }
 
   await worker.terminate()
-  await pdf.destroy()
+  pdf.cleanup()
 
   return fullText.trim()
 }

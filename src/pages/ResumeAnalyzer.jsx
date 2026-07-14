@@ -22,7 +22,7 @@ const UploadZone = ({ onFile }) => {
     e.preventDefault()
     setDragging(false)
     const f = e.dataTransfer.files[0]
-    if (f?.type === 'application/pdf') onFile(f)
+    if (f) onFile(f)
   }, [onFile])
 
   return (
@@ -37,7 +37,7 @@ const UploadZone = ({ onFile }) => {
           : 'border-white/15 bg-white/3 hover:border-blue-500/40 hover:bg-blue-500/5'
       }`}
     >
-      <input ref={inputRef} type="file" accept=".pdf" className="hidden"
+      <input ref={inputRef} type="file" accept="application/pdf,.pdf" className="hidden"
         onChange={(e) => { if (e.target.files[0]) onFile(e.target.files[0]) }} />
 
       <motion.div animate={{ y: dragging ? -6 : 0 }} transition={{ type: 'spring', stiffness: 200 }}
@@ -138,6 +138,16 @@ const ResumeAnalyzer = () => {
   const isExtracting = extrStatus && extrStatus.stage !== 'done'
 
   const handleFile = useCallback(async (f) => {
+    const isPdf = f?.type === 'application/pdf' || f?.name?.toLowerCase().endsWith('.pdf')
+    if (!isPdf) {
+      setError('Please select a PDF resume file.')
+      return
+    }
+    if (f.size > 10 * 1024 * 1024) {
+      setError('This PDF is larger than 10 MB. Please upload a smaller file.')
+      return
+    }
+
     setFile(f)
     setFileUrl(URL.createObjectURL(f))
     setAnalysis(null)
@@ -151,7 +161,8 @@ const ResumeAnalyzer = () => {
       setTxt(result.text)
       setMethod(result.method)
     } catch (e) {
-      setError('Failed to extract text from this PDF. Try another file or a different format.')
+      const reason = e instanceof Error ? e.message : ''
+      setError(reason || 'Failed to extract text from this PDF. Please try another file.')
       setExtrStatus(null)
     }
   }, [])

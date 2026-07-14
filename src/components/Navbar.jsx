@@ -21,7 +21,7 @@ const Navbar = () => {
         <div className="flex h-16 items-center justify-between sm:h-20">
 
           {/* Brand */}
-          <Link to="/" className="flex cursor-pointer items-center gap-3 group">
+          <Link to="/#home" className="flex cursor-pointer items-center gap-3 group">
             <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 via-violet-600 to-fuchsia-600 shadow-lg shadow-blue-600/20 transition-transform duration-300 group-hover:scale-105">
               <span className="text-sm font-black text-white">EN</span>
             </div>

@@ -1,5 +1,5 @@
-import React from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -12,10 +12,34 @@ import RoadmapGenerator from './pages/RoadmapGenerator'
 import ResumeAnalyzer from './pages/ResumeAnalyzer'
 import { ThemeProvider } from './utils/themeContext'
 
+const ScrollToHash = () => {
+  const { hash, pathname } = useLocation()
+
+  useEffect(() => {
+    const scrollToTarget = () => {
+      const targetId = hash.replace('#', '')
+      const target = targetId && document.getElementById(targetId)
+
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      } else if (!hash) {
+        window.scrollTo({ top: 0, behavior: 'auto' })
+      }
+    }
+
+    // Wait until the route's sections have rendered before looking up the ID.
+    const frame = requestAnimationFrame(scrollToTarget)
+    return () => cancelAnimationFrame(frame)
+  }, [hash, pathname])
+
+  return null
+}
+
 function App() {
   return (
     <ThemeProvider>
       <Router>
+        <ScrollToHash />
         <div className="flex min-h-screen flex-col bg-transparent transition-colors duration-300">
           <Navbar />
           <main className="flex-grow">

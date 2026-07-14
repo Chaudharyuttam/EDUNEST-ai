@@ -44,7 +44,7 @@ const HowItWorksSection = () => {
   return (
     <section
       id="how-it-works"
-      className={`relative overflow-hidden py-24 ${
+      className={`relative scroll-mt-20 overflow-hidden py-24 ${
         isDark ? 'bg-slate-900' : 'bg-white'
       }`}
     >
