@@ -5,10 +5,12 @@ const validDays = [30, 60, 90]
 const parseJson = (text) => JSON.parse(text.replace(/^```json\s*|\s*```$/g, '').trim())
 
 const createFallbackRoadmap = ({ careerGoal, skillLevel, dailyHours, targetDays }) => {
-  const phaseDays = Math.floor(targetDays / 3)
+  const phaseDays = Math.floor(targetDays / 4)
   const makeTopic = (id, title, description, difficulty) => ({ id, title, description, estimatedHours: Math.max(2, Math.round((targetDays * dailyHours) / 12)), difficulty })
   const role = careerGoal.toLowerCase()
-  const profile = role.includes('data') || role.includes('analyst')
+  const profile = role.includes('mern') || role.includes('full stack') || role.includes('fullstack')
+    ? { foundations: [['JavaScript and modern ES features', 'Practise asynchronous JavaScript, modules, array methods, and error handling.'], ['HTML, CSS, and responsive design', 'Build accessible layouts that work on mobile and desktop.'], ['React essentials', 'Use components, hooks, forms, routing, and state correctly.']], build: [['Node.js and Express APIs', 'Create REST endpoints with validation, errors, authentication, and tests.'], ['MongoDB and Mongoose', 'Model data, query efficiently, and connect MongoDB to an Express service.'], ['Full-stack integration', 'Connect React, APIs, authentication, protected routes, and deployment.']], interview: ['MERN architecture discussion', 'Explain data flow, authentication, API design, component design, and scaling choices.'], interviewTopics: ['JavaScript', 'React', 'Node.js and Express', 'MongoDB', 'REST APIs', 'System design'], project: 'a deployed full-stack application with authentication, CRUD, and a MongoDB database' }
+    : role.includes('data') || role.includes('analyst')
     ? { foundations: [['SQL and relational databases', 'Query, filter, join, aggregate, and model business data.'], ['Excel and data cleaning', 'Clean inconsistent data and build repeatable analysis workflows.']], build: [['Python for analysis', 'Use pandas and notebooks to explore and transform datasets.'], ['Dashboards and storytelling', 'Build a dashboard and explain insights to a non-technical audience.']], interview: ['Case-study analysis', 'Analyse a business dataset and communicate your recommendation.'], interviewTopics: ['SQL queries', 'Statistics', 'Excel', 'Business case studies'], project: 'an end-to-end sales or product analytics dashboard' }
     : role.includes('machine learning') || role.includes('ai ') || role.includes('ml ')
       ? { foundations: [['Python and data structures', 'Write clean Python and work confidently with arrays, dataframes, and files.'], ['Math for machine learning', 'Practise probability, statistics, linear algebra, and optimisation essentials.']], build: [['Classical machine learning', 'Train, validate, and compare regression and classification models.'], ['Model evaluation and deployment', 'Measure model quality and ship a small prediction service.']], interview: ['ML system case studies', 'Explain model choices, trade-offs, bias, and evaluation metrics.'], interviewTopics: ['Python', 'Statistics', 'Machine learning algorithms', 'Model metrics'], project: 'a deployed machine-learning prediction project' }
@@ -23,19 +25,24 @@ const createFallbackRoadmap = ({ careerGoal, skillLevel, dailyHours, targetDays 
               : { foundations: [[`Core ${careerGoal} concepts`, 'Learn the essential terminology, workflows, and tools for the role.'], ['Programming and problem solving', 'Practise clear logic, debugging, and version control.']], build: [[`${careerGoal} practical skills`, 'Apply role-specific tools and techniques to realistic tasks.'], ['Portfolio project', `Build and document a focused ${careerGoal} project from scratch.`]], interview: ['Role-specific interview practice', 'Practise explaining solutions, decisions, and project outcomes.'], interviewTopics: [`${careerGoal} fundamentals`, 'Problem solving', 'Project discussion', 'Behavioural questions'], project: `a portfolio-quality ${careerGoal} project` }
   const phases = [
     {
-      phaseNumber: 1, emoji: '🧱', title: 'Build the Foundations', durationDays: phaseDays, difficulty: skillLevel === 'Advanced' ? 'Intermediate' : skillLevel,
+      phaseNumber: 1, emoji: '🧱', title: `${careerGoal}: Core Foundations`, durationDays: phaseDays, difficulty: skillLevel === 'Advanced' ? 'Intermediate' : skillLevel,
       prerequisites: ['A consistent daily study routine'], learningObjectives: ['Strengthen role-specific foundations', 'Set up a practical learning workflow'], expectedOutcome: `A confident foundation for ${careerGoal}.`,
       topics: profile.foundations.map(([title, description], index) => makeTopic(`foundation-${index + 1}`, title, description, 'Beginner')),
     },
     {
-      phaseNumber: 2, emoji: '⚙️', title: 'Develop Practical Skills', durationDays: phaseDays, difficulty: 'Intermediate',
+      phaseNumber: 2, emoji: '⚙️', title: `${careerGoal}: Build Production Skills`, durationDays: phaseDays, difficulty: 'Intermediate',
       prerequisites: ['Foundation topics completed'], learningObjectives: ['Apply role-specific tools to realistic tasks', 'Build visible evidence of your skills'], expectedOutcome: `Working skills demonstrated through ${profile.project}.`,
-      topics: profile.build.map(([title, description], index) => makeTopic(`practice-${index + 1}`, title, description, 'Intermediate')),
+      topics: [...profile.build, ['Role workflow and quality', `Use Git branches, documentation, testing, and feedback loops while building ${careerGoal} work.`]].map(([title, description], index) => makeTopic(`practice-${index + 1}`, title, description, 'Intermediate')),
     },
     {
-      phaseNumber: 3, emoji: '🎯', title: 'Prepare for Interviews', durationDays: targetDays - phaseDays * 2, difficulty: 'Advanced',
-      prerequisites: ['Practical skills completed'], learningObjectives: ['Communicate technical decisions clearly', 'Practise interview-style questions'], expectedOutcome: `A portfolio-ready project and interview plan for ${careerGoal} roles.`,
-      topics: [makeTopic('interview-1', profile.interview[0], profile.interview[1], 'Advanced'), makeTopic('interview-2', 'Portfolio refinement', `Polish ${profile.project} and prepare concise project stories.`, 'Advanced')],
+      phaseNumber: 3, emoji: '🚀', title: `${careerGoal}: Capstone and Portfolio`, durationDays: phaseDays, difficulty: 'Intermediate',
+      prerequisites: ['Production skills completed'], learningObjectives: ['Ship a complete role-specific project', 'Create evidence recruiters can review'], expectedOutcome: `A portfolio featuring ${profile.project}.`,
+      topics: [makeTopic('capstone-1', `${careerGoal} capstone`, `Plan, build, test, and deploy ${profile.project}.`, 'Intermediate'), makeTopic('capstone-2', 'Portfolio case study', 'Document the problem, architecture, key decisions, screenshots, and measurable outcomes.', 'Intermediate'), makeTopic('capstone-3', 'Resume and GitHub polish', `Add ${careerGoal} keywords, project impact, clean commits, and a strong README.`, 'Intermediate')],
+    },
+    {
+      phaseNumber: 4, emoji: '🎯', title: `${careerGoal}: Interview Readiness`, durationDays: targetDays - phaseDays * 3, difficulty: 'Advanced',
+      prerequisites: ['Capstone completed'], learningObjectives: ['Communicate technical decisions clearly', 'Practise role-specific and behavioural questions'], expectedOutcome: `A portfolio-ready project and focused interview plan for ${careerGoal} roles.`,
+      topics: [makeTopic('interview-1', profile.interview[0], profile.interview[1], 'Advanced'), makeTopic('interview-2', `${careerGoal} mock interview`, `Complete timed questions on ${profile.interviewTopics.slice(0, 3).join(', ')} and explain your capstone clearly.`, 'Advanced'), makeTopic('interview-3', 'Job application system', 'Tailor resume bullets, track applications, request feedback, and practise behavioural stories.', 'Advanced')],
     },
   ]
 
