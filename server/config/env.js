@@ -26,6 +26,8 @@ const env = {
   // ── Gemini AI ───────────────────────────────────────────────────────────────
   // Get a free key at: https://aistudio.google.com/app/apikey
   GEMINI_API_KEY: process.env.GEMINI_API_KEY || '',
+  // Override only when you need to pin a Gemini model.
+  GEMINI_MODEL: process.env.GEMINI_MODEL || 'gemini-3.5-flash',
 }
 
 export default env

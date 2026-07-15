@@ -36,7 +36,7 @@ const getModel = () => {
   if (!env.GEMINI_API_KEY) return null
   const genAI = new GoogleGenerativeAI(env.GEMINI_API_KEY)
   resumeModel = genAI.getGenerativeModel({
-    model: 'gemini-1.5-flash',
+    model: env.GEMINI_MODEL,
     safetySettings: SAFETY_SETTINGS,
     generationConfig: GENERATION_CONFIG,
   })

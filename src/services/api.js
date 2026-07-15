@@ -9,9 +9,14 @@
 import axios from 'axios'
 
 // Resolve base URL:
-// - Production: VITE_API_URL env variable (set in Vercel dashboard)
-// - Development: /api  (Vite proxy forwards to localhost:5000)
-const BASE_URL = import.meta.env.VITE_API_URL || '/api'
+// - Production: VITE_API_URL may be either the backend origin or its /api URL.
+// - Development: /api is forwarded to localhost:5000 by Vite.
+// Keeping /api here also lets Vercel's serverless API routes work when no
+// separate backend URL is configured.
+const configuredApiUrl = import.meta.env.VITE_API_URL?.trim().replace(/\/+$/, '')
+const BASE_URL = configuredApiUrl
+  ? `${configuredApiUrl.replace(/\/api$/, '')}/api`
+  : '/api'
 
 const api = axios.create({
   baseURL: BASE_URL,

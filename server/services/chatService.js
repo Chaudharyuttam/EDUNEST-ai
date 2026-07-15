@@ -367,12 +367,12 @@ const getGeminiModel = () => {
 
   const client = new GoogleGenerativeAI(env.GEMINI_API_KEY)
   geminiModel = client.getGenerativeModel({
-    model: 'gemini-1.5-flash',
+    model: env.GEMINI_MODEL,
     systemInstruction: SYSTEM_INSTRUCTION,
     safetySettings: SAFETY_SETTINGS,
     generationConfig: GENERATION_CONFIG,
   })
-  logger.info('Gemini model initialised: gemini-1.5-flash')
+  logger.info(`Gemini model initialised: ${env.GEMINI_MODEL}`)
   return geminiModel
 }
 

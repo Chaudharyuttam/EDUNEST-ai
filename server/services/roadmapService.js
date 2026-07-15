@@ -40,7 +40,7 @@ const getModel = () => {
   if (!env.GEMINI_API_KEY) return null   // Fall back to mock
   const genAI = new GoogleGenerativeAI(env.GEMINI_API_KEY)
   geminiModel = genAI.getGenerativeModel({
-    model: 'gemini-1.5-flash',
+    model: env.GEMINI_MODEL,
     safetySettings: SAFETY_SETTINGS,
     generationConfig: GENERATION_CONFIG,
   })
